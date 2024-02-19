@@ -82,7 +82,7 @@ class Library:
     
     def remove_book(self):
         """Kütüphaneden bir kitabı kaldırır."""
-        book_title = input("Silmek istediğiniz kitabın adını girin: ")
+        book_title = input("Silmek istediğiniz kitabın adını girin(Kopya olan kitaplar için parantez ile birlikte içindeki kopya sayısını belirtelerek yazınız): ")
         author = input("Yazarın adını girin: ")
 
         with open(self.kitap_dosyaadi, "r") as file:
