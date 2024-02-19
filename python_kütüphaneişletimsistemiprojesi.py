@@ -47,7 +47,7 @@ class Library:
     def borrow_book(self):
         """Kütüphaneden kitap ödünç alır."""
         from datetime import datetime, timedelta
-        book_title = input("Ödünç almak istediğiniz kitabın adını girin\n(Kopya kitaplar için parantez ile birlikte kopya sayısınıda yazınız): ")
+        book_title = input("Ödünç almak istediğiniz kitabın adını girin\n(Aynı kitaplar için parantez ile birlikte kopya sayısınıda yazınız): ")
         borrower_name = input("Ödünç alan kişinin adı ve soyadı: ")
         borrowing_date = datetime.now().strftime("%Y-%m-%d")
         due_date = (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d")
@@ -82,7 +82,7 @@ class Library:
     
     def remove_book(self):
         """Kütüphaneden bir kitabı kaldırır."""
-        book_title = input("Silmek istediğiniz kitabın adını girin(Kopya olan kitaplar için parantez ile birlikte içindeki kopya sayısını belirtelerek yazınız): ")
+        book_title = input("Silmek istediğiniz kitabın adını girin(Aynı olan kitaplar için parantez ile birlikte içindeki kopya sayısını belirtelerek yazınız): ")
         author = input("Yazarın adını girin: ")
 
         with open(self.kitap_dosyaadi, "r") as file:
