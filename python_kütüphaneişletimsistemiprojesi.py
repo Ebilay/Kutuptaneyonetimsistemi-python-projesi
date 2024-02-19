@@ -47,7 +47,7 @@ class Library:
     def borrow_book(self):
         """Kütüphaneden kitap ödünç alır."""
         from datetime import datetime, timedelta
-        book_title = input("Ödünç almak istediğiniz kitabın adını girin: ")
+        book_title = input("Ödünç almak istediğiniz kitabın adını girin\n(Kopya kitaplar için parantez ile birlikte kopya sayısınıda yazınız): ")
         borrower_name = input("Ödünç alan kişinin adı ve soyadı: ")
         borrowing_date = datetime.now().strftime("%Y-%m-%d")
         due_date = (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d")
