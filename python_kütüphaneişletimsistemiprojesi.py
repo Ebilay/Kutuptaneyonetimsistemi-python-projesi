@@ -21,12 +21,9 @@ class Library:
         """Kütüphanedeki tüm kitapları listeler."""
         with open(self.kitap_dosyaadi, "r") as file:
             for line in file:
-                book_title, author, status, *_ = line.strip().split(",")
+                book_title, author, *_ = line.strip().split(",")
                 is_copy = "(Kopya)" if "(Kopya)" in book_title else ""
-                if status == "Kütüphane":
-                    print(f"{author} - {book_title.replace('(Kopya)', '')} {is_copy}")
-                elif status == "Ödünç":
-                    print(f"{author} - {book_title} {is_copy} (Ödünç Alındı)")
+                print(f"{author} - {book_title.replace('(Kopya)', '')} {is_copy}")
 
     def add_book(self):
         """Kütüphaneye yeni bir kitap ekler."""
@@ -38,16 +35,19 @@ class Library:
 
         if copy == "evet":
             copy_number = input("Kaçıncı kopya olduğunu belirtiniz: ")
-            book_title += f" ({copy_number})"
+            book_title += f" {copy_number}"
 
         with open(self.kitap_dosyaadi, "a") as file:
-            file.write(f"{book_title},{author},Kütüphane,{release_year},{num_pages}\n")
+            file.write(f"{book_title},{author},{release_year},{num_pages}\n")
         print(f"{author} tarafından yazılan {book_title} kitabı başarıyla listeye eklendi.")
+
+        self.list_books()
 
     def borrow_book(self):
         """Kütüphaneden kitap ödünç alır."""
+    
         from datetime import datetime, timedelta
-        book_title = input("Ödünç almak istediğiniz kitabın adını girin\n(Aynı kitaplar için parantez ile birlikte kopya sayısınıda yazınız): ")
+        book_title = input("Ödünç almak istediğiniz kitabın adını girin\n(Aynı kitaplar için kopya sayısınıda yazınız): ")
         borrower_name = input("Ödünç alan kişinin adı ve soyadı: ")
         borrowing_date = datetime.now().strftime("%Y-%m-%d")
         due_date = (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d")
@@ -76,13 +76,14 @@ class Library:
 
         # Ödünç alınan kitabı kaydet
         with open(self.ödüncalma_dosyaadi, "a") as file:
-            file.write(f"{book_title},{borrowing_date},{due_date},{borrower_name}\n")
+            file.write(f"{book_title},{author},{borrower_name},{borrowing_date},{due_date}\n")
         print(f"{book_title} kitabını {borrower_name} isimli kişi ödünç aldı.")
         print(f"Lütfen {due_date} tarihine kadar {book_title} kitabını iade ediniz.")
-    
+
     def remove_book(self):
         """Kütüphaneden bir kitabı kaldırır."""
-        book_title = input("Silmek istediğiniz kitabın adını girin(Aynı olan kitaplar için parantez ile birlikte içindeki kopya sayısını belirtelerek yazınız): ")
+        """Kütüphaneden bir kitabı kaldırır."""
+        book_title = input("Silmek istediğiniz kitabın adını girin(Aynı olan kitaplar için kopya sayısını belirtelerek yazınız): ")
         author = input("Yazarın adını girin: ")
 
         with open(self.kitap_dosyaadi, "r") as file:
